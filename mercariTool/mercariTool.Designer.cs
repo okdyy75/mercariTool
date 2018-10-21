@@ -31,10 +31,6 @@
             this.login_label = new System.Windows.Forms.Label();
             this.getItemList_button = new System.Windows.Forms.Button();
             this.itemList_dataGridView = new System.Windows.Forms.DataGridView();
-            this.allSell_button = new System.Windows.Forms.Button();
-            this.checkDelete_button = new System.Windows.Forms.Button();
-            this.itemCont_label = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.itemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +38,10 @@
             this.comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sale = new System.Windows.Forms.DataGridViewButtonColumn();
             this.chkdel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.allSell_button = new System.Windows.Forms.Button();
+            this.checkDelete_button = new System.Windows.Forms.Button();
+            this.itemCont_label = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itemList_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             this.login_label.AutoSize = true;
             this.login_label.BackColor = System.Drawing.Color.Orange;
             this.login_label.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.login_label.Location = new System.Drawing.Point(254, 27);
+            this.login_label.Location = new System.Drawing.Point(256, 34);
             this.login_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.login_label.Name = "login_label";
             this.login_label.Size = new System.Drawing.Size(122, 24);
@@ -87,50 +87,6 @@
             this.itemList_dataGridView.Size = new System.Drawing.Size(1150, 550);
             this.itemList_dataGridView.TabIndex = 8;
             this.itemList_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemList_dataGridView_CellClick);
-            // 
-            // allSell_button
-            // 
-            this.allSell_button.Location = new System.Drawing.Point(870, 28);
-            this.allSell_button.Margin = new System.Windows.Forms.Padding(4);
-            this.allSell_button.Name = "allSell_button";
-            this.allSell_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.allSell_button.Size = new System.Drawing.Size(100, 30);
-            this.allSell_button.TabIndex = 9;
-            this.allSell_button.Text = "全部再出品";
-            this.allSell_button.UseVisualStyleBackColor = true;
-            this.allSell_button.Click += new System.EventHandler(this.allSell_button_Click);
-            // 
-            // checkDelete_button
-            // 
-            this.checkDelete_button.Location = new System.Drawing.Point(978, 28);
-            this.checkDelete_button.Margin = new System.Windows.Forms.Padding(4);
-            this.checkDelete_button.Name = "checkDelete_button";
-            this.checkDelete_button.Size = new System.Drawing.Size(100, 30);
-            this.checkDelete_button.TabIndex = 10;
-            this.checkDelete_button.Text = "選択削除";
-            this.checkDelete_button.UseVisualStyleBackColor = true;
-            this.checkDelete_button.Click += new System.EventHandler(this.checkDelete_button_Click);
-            // 
-            // itemCont_label
-            // 
-            this.itemCont_label.AutoSize = true;
-            this.itemCont_label.Location = new System.Drawing.Point(832, 36);
-            this.itemCont_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.itemCont_label.Name = "itemCont_label";
-            this.itemCont_label.Size = new System.Drawing.Size(30, 15);
-            this.itemCont_label.TabIndex = 11;
-            this.itemCont_label.Text = "0件";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(442, 28);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 30);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "PHPSESSIDログイン";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.PHPSESSID_Click);
             // 
             // itemId
             // 
@@ -179,6 +135,50 @@
             this.chkdel.HeaderText = "選択削除";
             this.chkdel.Name = "chkdel";
             this.chkdel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // allSell_button
+            // 
+            this.allSell_button.Location = new System.Drawing.Point(870, 28);
+            this.allSell_button.Margin = new System.Windows.Forms.Padding(4);
+            this.allSell_button.Name = "allSell_button";
+            this.allSell_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.allSell_button.Size = new System.Drawing.Size(100, 30);
+            this.allSell_button.TabIndex = 9;
+            this.allSell_button.Text = "全部再出品";
+            this.allSell_button.UseVisualStyleBackColor = true;
+            this.allSell_button.Click += new System.EventHandler(this.allSell_button_Click);
+            // 
+            // checkDelete_button
+            // 
+            this.checkDelete_button.Location = new System.Drawing.Point(978, 28);
+            this.checkDelete_button.Margin = new System.Windows.Forms.Padding(4);
+            this.checkDelete_button.Name = "checkDelete_button";
+            this.checkDelete_button.Size = new System.Drawing.Size(100, 30);
+            this.checkDelete_button.TabIndex = 10;
+            this.checkDelete_button.Text = "選択削除";
+            this.checkDelete_button.UseVisualStyleBackColor = true;
+            this.checkDelete_button.Click += new System.EventHandler(this.checkDelete_button_Click);
+            // 
+            // itemCont_label
+            // 
+            this.itemCont_label.AutoSize = true;
+            this.itemCont_label.Location = new System.Drawing.Point(832, 36);
+            this.itemCont_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.itemCont_label.Name = "itemCont_label";
+            this.itemCont_label.Size = new System.Drawing.Size(30, 15);
+            this.itemCont_label.TabIndex = 11;
+            this.itemCont_label.Text = "0件";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(397, 28);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 30);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "PHPSESSIDログイン";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.PHPSESSID_Click);
             // 
             // MainForm
             // 
