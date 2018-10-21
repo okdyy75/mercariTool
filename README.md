@@ -31,4 +31,4 @@ PHPSESSID = XXXXXXXXXX
 1. [選択削除]のヘッダーをクリックすると、一括チェックができる。
 1. 商品データ一覧で[出品]ボタンをクリックすると、同じ商品データで再出品される。
 
-![mercariTool画面キャプチャ.bmp](https://raw.github.com/wiki/okdyy75/mercariTool/images/mercariTool画面キャプチャ.bmp)
+![mercariTool画面キャプチャ.jpg](https://raw.github.com/wiki/okdyy75/mercariTool/images/mercariTool画面キャプチャ.jpg)
