@@ -194,7 +194,7 @@
             this.Controls.Add(this.login_label);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "mercariTool";
             ((System.ComponentModel.ISupportInitialize)(this.itemList_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
