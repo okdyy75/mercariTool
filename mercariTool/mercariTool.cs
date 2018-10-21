@@ -14,8 +14,9 @@ namespace mercariTool
     {
         // 定数設定
         private String MERCARI_URL = "https://www.mercari.com";
-        private String MYPAGE_URL = "https://www.mercari.com/jp/";
+        private String MYPAGE_URL = "https://www.mercari.com/jp/mypage/";
         private String LOGIN_URL = "https://www.mercari.com/jp/login/";
+        private String INI_FILENAME = "init.txt";
         private String PHPSESSID;
 
         private int COLUMN_INDEX_ITEMID = 0;
@@ -34,14 +35,20 @@ namespace mercariTool
             InitializeComponent();
             myCookie = new CookieContainer();
             isLogin = false;
-
-            var ini = new IniFile("init.txt");
-            PHPSESSID = ini.Read("global", "PHPSESSID");
         }
 
         // [PHPSESSIDログイン]ボタンクリック
         private void PHPSESSID_Click(object sender, EventArgs e)
         {
+            var ini = new IniFile(INI_FILENAME);
+
+            if (!System.IO.File.Exists(ini.FullName))
+            {
+                MessageBox.Show("exeと同じフォルダに「" + INI_FILENAME + "」ファイルを設置して下さい");
+                return;
+            }
+            PHPSESSID = ini.Read("global", "PHPSESSID");
+
             myCookie.Add(new Uri(MERCARI_URL), (new Cookie("PHPSESSID", PHPSESSID)));
             loginCheck();
         }
