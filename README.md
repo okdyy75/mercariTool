@@ -7,12 +7,6 @@
 ### 環境
 - Visual Studio 2017 Community
 
-#### ソース管理初期セットアップメモ
-1. GitHub上でリポジトリ作成
-1. Visual Studio上でGitHubに接続し、作成したリポジトリをクローン（C:\Users\xxxxx\source\repos\okdyy75\mercariTool）
-1. クローンしたフォルダに作成したプロジェクトのソースをそのままコピー
-1. Visual Studio上で.gitignoreファイルなどを設定して、プッシュ
-
 ### 実行手順
 1. .slhファイルをクリックしてVisual Studio起動
 1. ソリューションをリビルドしてexeを作成
