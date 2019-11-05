@@ -4,9 +4,6 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
 using Codeplex.Data;
-using System.Collections;
-using System.Linq;
-using System.Data;
 
 namespace mercariTool
 {
@@ -16,6 +13,7 @@ namespace mercariTool
         private String MERCARI_URL = "https://www.mercari.com";
         private String MYPAGE_URL = "https://www.mercari.com/jp/mypage/";
         private String LOGIN_URL = "https://www.mercari.com/jp/login/";
+        private String SELL_URL = "https://www.mercari.com/jp/sell/";
         private String INI_FILENAME = "init.txt";
         private String PHPSESSID;
 
@@ -145,8 +143,13 @@ namespace mercariTool
             if (colIdx == COLUMN_INDEX_SELL)
             {
                 long itemId = long.Parse(itemList_dataGridView[0, rowIdx].Value.ToString());
-                sellItem(itemId);
-                MessageBox.Show("出品が完了しました");
+                if (sellItem(itemId))
+                {
+                    MessageBox.Show("出品が完了しました");
+                } else
+                {
+                    MessageBox.Show("出品に失敗しました");
+                }
             }
 
             // [選択削除]ヘッダークリック
@@ -208,17 +211,19 @@ namespace mercariTool
         }
 
         // 出品処理
-        private void sellItem(long itemId)
+        private bool sellItem(long itemId)
         {
             try
             {
                 //WebRequestの作成
-                String html = webRequest("get", LOGIN_URL);
+                String html = webRequest("get", SELL_URL);
 
                 //スクレイピング
-                HtmlAgilityPack.HtmlDocument agility_html_doc = new HtmlAgilityPack.HtmlDocument();
-                agility_html_doc.LoadHtml(html);
-                String __csrf_value = agility_html_doc.DocumentNode.SelectNodes("//input[@name='__csrf_value']")[0].Attributes["value"].Value;
+                html = html.Replace("\r", "").Replace("\n", "");
+                MatchCollection matche1 = Regex.Matches(html, "render(\\(.*?\\))");
+                MatchCollection matche2 = Regex.Matches(matche1[0].Value, "\\{.*?\\}, '(.+)', '(.+)'");
+                String __csrf_value = matche2[0].Groups[1].Value;
+                String exhibit_token = matche2[0].Groups[2].Value;
 
                 //WebRequestの作成
                 html = webRequest("get", "https://www.mercari.com/jp/sell/item_json/m" + itemId + "/");
@@ -243,11 +248,17 @@ namespace mercariTool
                 int price = int.Parse(json.item.price);
                 int sales_fee = (price / 10);
 
-                var images_idx = (int[])json.item.images;
-                String image1 = (images_idx.Length >= 1) ? json.item.images[0].url : "";
-                String image2 = (images_idx.Length >= 2) ? json.item.images[1].url : "";
-                String image3 = (images_idx.Length >= 3) ? json.item.images[2].url : "";
-                String image4 = (images_idx.Length >= 4) ? json.item.images[3].url : "";
+                var imgLength = ((object[])json.item.photo_paths).Length;
+                String image1 = (imgLength >= 1) ? json.item.photo_paths[0] : "";
+                String image2 = (imgLength >= 2) ? json.item.photo_paths[1] : "";
+                String image3 = (imgLength >= 3) ? json.item.photo_paths[2] : "";
+                String image4 = (imgLength >= 4) ? json.item.photo_paths[3] : "";
+                String image5 = (imgLength >= 5) ? json.item.photo_paths[4] : "";
+                String image6 = (imgLength >= 6) ? json.item.photo_paths[5] : "";
+                String image7 = (imgLength >= 7) ? json.item.photo_paths[6] : "";
+                String image8 = (imgLength >= 8) ? json.item.photo_paths[7] : "";
+                String image9 = (imgLength >= 9) ? json.item.photo_paths[8] : "";
+                String image10 = (imgLength >= 10) ? json.item.photo_paths[9] : "";
 
                 //if (price >= 10000)
                 //{
@@ -257,32 +268,41 @@ namespace mercariTool
 
                 //POST送信する文字列を作成
                 string postData =
-                    "__csrf_value=" + System.Web.HttpUtility.UrlEncode(__csrf_value)
-                    + "&brand_name=" + brand_name
-                    + "&category_id=" + category_id
-                    + "&description=" + System.Web.HttpUtility.UrlEncode(description)
-                    + "&image1=" + System.Web.HttpUtility.UrlEncode(image1)
-                    + "&image2=" + System.Web.HttpUtility.UrlEncode(image2)
-                    + "&image3=" + System.Web.HttpUtility.UrlEncode(image3)
-                    + "&image4=" + System.Web.HttpUtility.UrlEncode(image4)
-                    + "&item_condition=" + item_condition
-                    + "&name=" + System.Web.HttpUtility.UrlEncode(name)
-                    + "&price=" + price
-                    + "&sales_fee=" + sales_fee
-                    + "&shipping_duration=" + shipping_duration
-                    + "&shipping_from_area=" + shipping_from_area
-                    + "&shipping_method=" + shipping_method
-                    + "&shipping_payer=" + shipping_payer
-                    + "&size=" + size
-                    ;
+                   "__csrf_value=" + System.Web.HttpUtility.UrlEncode(__csrf_value)
+                   + "&exhibit_token=" + System.Web.HttpUtility.UrlEncode(exhibit_token)
+                   + "&brand_name=" + brand_name
+                   + "&category_id=" + category_id
+                   + "&description=" + System.Web.HttpUtility.UrlEncode(description)
+                   + "&image1=" + System.Web.HttpUtility.UrlEncode(image1)
+                   + "&image2=" + System.Web.HttpUtility.UrlEncode(image2)
+                   + "&image3=" + System.Web.HttpUtility.UrlEncode(image3)
+                   + "&image4=" + System.Web.HttpUtility.UrlEncode(image4)
+                   + "&image5=" + System.Web.HttpUtility.UrlEncode(image5)
+                   + "&image6=" + System.Web.HttpUtility.UrlEncode(image6)
+                   + "&image7=" + System.Web.HttpUtility.UrlEncode(image7)
+                   + "&image8=" + System.Web.HttpUtility.UrlEncode(image8)
+                   + "&image9=" + System.Web.HttpUtility.UrlEncode(image9)
+                   + "&image10=" + System.Web.HttpUtility.UrlEncode(image10)
+                   + "&item_condition=" + item_condition
+                   + "&name=" + System.Web.HttpUtility.UrlEncode(name)
+                   + "&price=" + price
+                   + "&sales_fee=" + sales_fee
+                   + "&shipping_duration=" + shipping_duration
+                   + "&shipping_from_area=" + shipping_from_area
+                   + "&shipping_method=" + shipping_method
+                   + "&shipping_payer=" + shipping_payer
+                   + "&size=" + size
+                   ;
 
                 //WebRequestの作成
                 webRequest("post", "https://www.mercari.com/jp/sell/selling/", postData);
 
+                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return false;
             }
 
         }
@@ -400,6 +420,7 @@ namespace mercariTool
                 StreamReader sr = new StreamReader(data);
                 dynamic json = DynamicJson.Parse(sr.ReadToEnd());
                 Console.WriteLine(json);
+                throw ex;
             }
 
             return body;
